@@ -7,14 +7,6 @@ const Progress = styled.div`
 `;
 
 class ProgressBar extends PureComponent {
-  static defaultProps = {
-    ratio: 0,
-  }
-
-  static propTypes = {
-    ratio: PropTypes.number,
-  }
-
   render() {
     const { ratio } = this.props;
     return (
@@ -24,5 +16,13 @@ class ProgressBar extends PureComponent {
     );
   }
 }
+
+ProgressBar.defaultProps = {
+  ratio: 0,
+};
+
+ProgressBar.propTypes = {
+  ratio: PropTypes.number,
+};
 
 export default ProgressBar;

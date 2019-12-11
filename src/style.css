@@ -50,7 +50,6 @@ button {
   padding: 0.5em 45px 0.5em 1em;
   width: 400px;
   height: 40px;
-  /* width: 80%; */
 }
 
 
@@ -73,11 +72,8 @@ button {
 }
 
 ul {
-  /* display: none; */
   list-style-type: none;
-  /* margin-block-start: 0em; */
-    /* margin-block-end: 0em; */
-    padding-inline-start: 0px;
+  padding-inline-start: 0px;
 }
 
 .container {
@@ -106,9 +102,6 @@ ul {
   line-height: 50px;
   font-size: 20px;
   background: rgba(95, 158, 160, 0.63);
-  /* border: 0px solid #ccc; */
-  /* border-bottom: 4px; */
-  /* display: flex; */
   justify-content: space-between;
   margin-bottom: 1px;
   color: white;
@@ -116,7 +109,7 @@ ul {
 }
 
 .todo__item > label {
-  width: 300px;
+  width: 260px;
   display: flex;
   cursor: pointer;
   float: left;
@@ -128,8 +121,6 @@ input[type="checkbox"] {
   cursor: pointer;
   height: 0;
   width: 0;
-  /* display: none; */
-  /* padding-right: 1em; */
   font-size: 24px;
 }
 
@@ -180,9 +171,6 @@ input[type="checkbox"] {
   position: absolute;
   top: 52%;
   left: 15px;
-  /* height: 25px; */
-  /* width: 25px; */
-  /* background-color: #eee; */
   transform: translate(0, -50%);
 }
 
@@ -194,16 +182,17 @@ input[type="checkbox"] {
   transform: translate(0, -50%);
   display: none;
 }
-.todo__item__delete_btn {
+.todo__item__delete_btn, .todo__item__edite_btn, .todo__item__send_update_btn {
   background: none;
   padding-right: 1em;
   border: none;
   color: white;
   transition: color 0.3s;
-  /* float: right; */
 }
 
-.todo__item__delete_btn:hover {
+
+
+.todo__item__delete_btn:hover, .todo__item__edite_btn:hover, .todo__item__send_update_btn:hover {
   color: rgb(190, 226, 228);
 }
 
@@ -217,7 +206,7 @@ input[type="checkbox"] {
   border-top-right-radius: 5px;
 }
 
-.fas.fa-times {
+.fas.fa-times, .fas.fa-edit, .far.fa-check-circle{
   width: 1em;
   font-size: 24px;
   float: right;
@@ -262,7 +251,6 @@ button.pickedTag, .filters button:hover {
 .pbar .progress {
   background: linear-gradient(to bottom right, rgba(95, 158, 160, 0.93), #04b2c3);
   height: inherit;
-  /* width: 0%; */
   transition: all .5s;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;

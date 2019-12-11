@@ -14,6 +14,8 @@ class App extends Component {
       todoText: '',
       filter: 'all',
       filters: ['all', 'completed', 'uncompleted'],
+      whichIdIsEdite: null,
+      editeContent: '',
     };
     this.id = 1;
   }
@@ -39,13 +41,13 @@ class App extends Component {
     }
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
-      todoText: e.target.value,
+      [e.target.name]: e.target.value,
     });
   }
 
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     if (e.key === 'Enter') this.addTodo();
   }
 
@@ -65,14 +67,37 @@ class App extends Component {
     this.id += 1;
   }
 
-  deleteTodo = (id) => {
+  updateTodo = () => {
+    const { todos, whichIdIsEdite, editeContent } = this.state;
+    const editedTodo = todos.find((todo => todo.id === whichIdIsEdite));
+    console.log('editedTodo', editedTodo);
+    editedTodo.content = editeContent;
+    this.setState({
+      todos: [...todos.filter(todo => todo.id !== whichIdIsEdite),
+        editedTodo,
+      ],
+      whichIdIsEdite: null,
+      editeContent: '',
+    });
+  };
+
+  handleClickIsEdite = id => {
+    const { todos } = this.state;
+    this.setState({
+      whichIdIsEdite: id,
+      editeContent: todos.find(todo => todo.id === id).content,
+    });
+  }
+
+
+  deleteTodo = id => {
     const { todos } = this.state;
     this.setState({
       todos: todos.filter(todo => todo.id !== id),
     });
   }
 
-  markTodo = (id) => {
+  markTodo = id => {
     const { todos } = this.state;
     this.setState({
       todos: todos.map(todo => (
@@ -84,14 +109,14 @@ class App extends Component {
     });
   }
 
-  changeFilter = (filter) => {
+  changeFilter = filter => {
     this.setState({
       filter,
     });
   }
 
   render() {
-    const { filter } = this.state;
+    const { filter, whichIdIsEdite, editeContent } = this.state;
     let { todos } = this.state;
     const ratio = todos.length === 0
       ? 0 : todos.filter(todo => todo.isCompleted).length / todos.length;
@@ -117,8 +142,13 @@ class App extends Component {
         />
         <TodoItems
           todos={todos}
+          handleChange={this.handleChange}
+          updateTodo={this.updateTodo}
           deleteTodo={this.deleteTodo}
           markTodo={this.markTodo}
+          whichIdIsEdite={whichIdIsEdite}
+          editeContent={editeContent}
+          handleClickIsEdite={this.handleClickIsEdite}
         />
       </div>
     );

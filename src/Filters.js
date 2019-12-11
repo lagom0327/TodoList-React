@@ -6,14 +6,7 @@ const firstCharUpperCase = str => (
 );
 
 class Filters extends Component {
-  static propTypes = {
-    changeFilter: PropTypes.func.isRequired,
-    filter: PropTypes.string.isRequired,
-    // 某種類型的陣列(字串類型)
-    filters: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }
-
-  handleClick = (e) => {
+  handleClick = e => {
     const { changeFilter, filter } = this.props;
     if (filter === e.target.dataset.tag) return;
     changeFilter(e.target.dataset.tag);
@@ -40,5 +33,11 @@ class Filters extends Component {
     );
   }
 }
+
+Filters.propTypes = {
+  changeFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default Filters;

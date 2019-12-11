@@ -2,17 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 class TodoInput extends PureComponent {
-  static defaultProps = {
-    todoText: '',
-  }
-
-  static propTypes = {
-    todoText: PropTypes.string,
-    handleChange: PropTypes.func.isRequired,
-    handleKeyDown: PropTypes.func.isRequired,
-    addTodo: PropTypes.func.isRequired,
-  }
-
   render() {
     const {
       todoText, handleChange, handleKeyDown, addTodo,
@@ -23,6 +12,7 @@ class TodoInput extends PureComponent {
           className="todo__input__content"
           type="text"
           placeholder="What needs to be done ?"
+          name="todoText"
           value={todoText}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
@@ -38,5 +28,16 @@ class TodoInput extends PureComponent {
     );
   }
 }
+
+TodoInput.defaultProps = {
+  todoText: '',
+};
+
+TodoInput.propTypes = {
+  todoText: PropTypes.string,
+  handleChange: PropTypes.func.isRequired,
+  handleKeyDown: PropTypes.func.isRequired,
+  addTodo: PropTypes.func.isRequired,
+};
 
 export default TodoInput;
