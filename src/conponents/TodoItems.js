@@ -6,7 +6,7 @@ class TodoItems extends PureComponent {
   render() {
     const {
       // eslint-disable-next-line max-len
-      todos, deleteTodo, markTodo, updateTodo, whichIdIsEdite, handleChange, editeContent, handleClickIsEdite,
+      todos, deleteTodo, markTodo, updateTodo, whichIdIsEdite, handleChange, editeContent, handleClickIsEdite, handleCancelUpdate,
     } = this.props;
     console.log('todos');
     return (
@@ -22,6 +22,7 @@ class TodoItems extends PureComponent {
             whichIdIsEdite={whichIdIsEdite}
             editeContent={editeContent}
             handleClickIsEdite={handleClickIsEdite}
+            handleCancelUpdate={handleCancelUpdate}
           />
         ))}
       </ul>
@@ -45,6 +46,7 @@ TodoItems.propTypes = {
   updateTodo: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleClickIsEdite: PropTypes.func.isRequired,
+  handleCancelUpdate: PropTypes.func.isRequired,
   editeContent: PropTypes.string.isRequired,
   whichIdIsEdite: PropTypes.number,
 };

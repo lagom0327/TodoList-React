@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const SendBtn = ({ handleClick }) => (
   <button
     type="button"
+    title="Check"
     className="todo__item__send_update_btn"
     onClick={handleClick}
   >
@@ -18,6 +19,7 @@ SendBtn.propTypes = {
 const EditeBtn = ({ editeId }) => (
   <button
     type="button"
+    title="Edite"
     className="todo__item__edite_btn"
     onClick={editeId}
   >
@@ -29,7 +31,7 @@ EditeBtn.propTypes = {
   editeId: PropTypes.func.isRequired,
 };
 
-const EditeInput = ({ editeContent, handleChange }) => (
+const EditeInput = ({ editeContent, handleChange, handleCancelUpdate }) => (
   <input
     type="text"
     className="todo__item_input-edite"
@@ -38,12 +40,14 @@ const EditeInput = ({ editeContent, handleChange }) => (
     name="editeContent"
     value={editeContent}
     onChange={handleChange}
+    onBlur={handleCancelUpdate}
   />
 );
 
 EditeInput.propTypes = {
   editeContent: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleCancelUpdate: PropTypes.func.isRequired,
 };
 
 class TodoItem extends Component {
@@ -55,6 +59,12 @@ class TodoItem extends Component {
   editeId = () => {
     const { todo, handleClickIsEdite } = this.props;
     handleClickIsEdite(todo.id);
+  }
+
+  cancelEdite = e => {
+    const { handleCancelUpdate } = this.props;
+    if (e.relatedTarget && e.relatedTarget.classList.contains('todo__item__send_update_btn')) return;
+    handleCancelUpdate();
   }
 
   mark = () => {
@@ -76,7 +86,15 @@ class TodoItem extends Component {
             checked={todo.isCompleted}
             onChange={this.mark}
           />
-          {isEditing && <EditeInput handleChange={handleChange} editeContent={editeContent} />}
+          {
+            isEditing && (
+            <EditeInput
+              handleChange={handleChange}
+              handleCancelUpdate={this.cancelEdite}
+              editeContent={editeContent}
+            />
+            )
+          }
           {!isEditing && <p>{todo.content}</p>}
           <i className="fas fa-square checkmark" />
           <i className="fas fa-check-square checkmark--checked" />
@@ -85,6 +103,7 @@ class TodoItem extends Component {
         {isEditing && <SendBtn handleClick={updateTodo} />}
         <button
           type="button"
+          title="Delete"
           className="todo__item__delete_btn"
           onClick={this.delete}
         >
@@ -113,6 +132,7 @@ TodoItem.propTypes = {
   updateTodo: PropTypes.func.isRequired,
   handleClickIsEdite: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleCancelUpdate: PropTypes.func.isRequired,
 };
 
 export default TodoItem;

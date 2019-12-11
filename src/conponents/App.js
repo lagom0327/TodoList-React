@@ -3,8 +3,8 @@ import TodoInput from './TodoInput';
 import ProgressBar from './ProgressBar';
 import TodoItems from './TodoItems';
 import Filters from './Filters';
-import './reset.css';
-import './style.css';
+import '../css/reset.css';
+import '../css/style.css';
 
 class App extends Component {
   constructor(props) {
@@ -73,9 +73,19 @@ class App extends Component {
     console.log('editedTodo', editedTodo);
     editedTodo.content = editeContent;
     this.setState({
-      todos: [...todos.filter(todo => todo.id !== whichIdIsEdite),
-        editedTodo,
-      ],
+      todos: todos.map(todo => {
+        if (todo.id !== whichIdIsEdite) return todo;
+        const newTodo = todo;
+        newTodo.content = editeContent;
+        return newTodo;
+      }),
+      whichIdIsEdite: null,
+      editeContent: '',
+    });
+  };
+
+  cancelUpdateTodo = () => {
+    this.setState({
       whichIdIsEdite: null,
       editeContent: '',
     });
@@ -149,6 +159,7 @@ class App extends Component {
           whichIdIsEdite={whichIdIsEdite}
           editeContent={editeContent}
           handleClickIsEdite={this.handleClickIsEdite}
+          handleCancelUpdate={this.cancelUpdateTodo}
         />
       </div>
     );
